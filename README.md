@@ -15,3 +15,5 @@ live-server .
 ```
 
 to view the site with live reloading!
+
+You can also run the interface just by opening the index.html file and refreshing the browser to view any changes!
