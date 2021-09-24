@@ -11,6 +11,13 @@ class Point {
   }
 }
 
+class Edge {
+    constructor(a, b) {
+      this.a = a;
+      this.b = b;
+    }
+  }
+
 let verts = [];
 
 function getCursorPosition(event) {
