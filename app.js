@@ -96,6 +96,10 @@ const updateVertsStatus = () => {
             vertsStatus.innerHTML += "<br /><br />Triangle 2: ";
         }
         char = String.fromCharCode(65 + index);
+        let ctx = canvas.getContext('2d');
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText(char, vert.x, vert.y);
         if (index != 2 && index != 5) {
             vertsStatus.innerHTML += `${char}: (${vert.x}, ${vert.y}), `;
         } else {
