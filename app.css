@@ -1,0 +1,12 @@
+html, body {
+    height: 100%;
+    text-align: center;
+}
+
+canvas {
+    background-color: lightgrey;
+}
+
+canvas:hover {
+    cursor: crosshair;
+}
