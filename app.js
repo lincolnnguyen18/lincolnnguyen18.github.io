@@ -1,3 +1,5 @@
+// Why github pages not updating???
+
 let body = document.getElementById('canvas');
 let status = document.getElementById('status');
 let substatus = document.getElementById('substatus');
