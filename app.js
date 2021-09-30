@@ -12,11 +12,11 @@ class Point {
 }
 
 class Edge {
-    constructor(a, b) {
-      this.a = a;
-      this.b = b;
-    }
+  constructor(a, b) {
+    this.a = a;
+    this.b = b;
   }
+}
 
 let verts = [];
 
@@ -84,8 +84,44 @@ const drawTriangle = (a, b, c) => {
     }
 }
 
+// a b c
+// a b
+// a c
+// b c
+
+// d e f
+// d e
+// d f
+// e f
+
+const pointIsInTriangle = (a, b, c, point) => {
+    // if (LeftOn(c, b, point) && LeftOn(b, a, point) && LeftOn(a, c, point)) {
+    if (LeftOn(a, b, point) && LeftOn(b, c, point) && LeftOn(c, a, point)) {
+        return true;
+    }
+    return false;
+}
+
 const TriTriIntersect = (a, b, c, d, e, f) => {
-    // Put code here :)
+    // Create edges array for each triangle
+    edges1 = [new Edge(a, b), new Edge(a, c), new Edge(b, c)];
+    edges2 = [new Edge(d, e), new Edge(d, f), new Edge(e, f)];
+    // Check if any pair of edges between the two triangles intersect
+    for (let i = 0; i < edges1.length; i++) {
+        for (let j = 0; j < edges2.length; j++) {
+            if (Intersect(edges1[i].a, edges1[i].b, edges2[j].a, edges2[j].b)) {
+                return true;
+            }
+        }
+    }
+    // Check if triangle def is inside triangle abc
+    if (pointIsInTriangle(a, b, c, d) && pointIsInTriangle(a, b, c, e) && pointIsInTriangle(a, b, c, f)) {
+        return true;
+    }
+    // Check if triangle abc is inside triangle def
+    if (pointIsInTriangle(d, e, f, a) && pointIsInTriangle(d, e, f, b) && pointIsInTriangle(d, e, f, c)) {
+        return true;
+    }
     return false;
 }
 
@@ -124,7 +160,11 @@ body.addEventListener('click', function(e) {
     verts.push(getCursorPosition(e));
     if (verts.length == 3) {
         let area = Area2(verts[0], verts[1], verts[2]);
-        console.log(`Triangle 1 area: ${area}}`)
+        if (area < 0) {
+            let temp = verts[0];
+            verts[0] = verts[2];
+            verts[2] = temp;
+        }
 
         clearCanvas();
         drawTriangle(verts[0], verts[1], verts[2]);
@@ -134,7 +174,11 @@ body.addEventListener('click', function(e) {
         updateVertsStatus();
     } else if (verts.length == 6) {
         let area = Area2(verts[3], verts[4], verts[5]);
-        console.log(`Triangle 2 area: ${area}}`)
+        if (area < 0) {
+            let temp = verts[3];
+            verts[3] = verts[5];
+            verts[5] = temp;
+        }
 
         drawTriangle(verts[3], verts[4], verts[5]);
 
